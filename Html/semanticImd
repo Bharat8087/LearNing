@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header> BORDER </header>
+    <nav>
+        <a href="#actor" id="nav-actor">Actor</a>
+        <a href="#quote" id="nav-quote">Quote</a>
+    </nav>
+    <article>
+        <h1>Movie Summary</h1>
+        <p>It is about the action movie on Army</p>
+    </article>
+    <section id="actor">
+        <h2>Actor:</h2>
+        <p>Sunny Deol</p>
+    </section>
+    <section id="quote">
+        <h2>Quote:</h2>
+        <p>It is the action movie of Sunny Deol and team.</p>
+    </section>
+    <aside>
+        <h2>Movie Details</h2>
+        <p>IMDb Rating: 8.5</p>
+        <p>Release Date: 1<sup>st</sup> January 1997</p>
+    </aside>
+    <footer>
+        <p>Produced by: J.P.DUTTA</p>
+    </footer>
+    <script type="text/javascript" src="./script.js"></script>
+</body>
+
+</html>
