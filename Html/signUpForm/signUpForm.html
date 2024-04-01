@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign up form Project</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <h2>Sign Up</h2>
+    </header>
+
+    <main>
+        <form action="#" method="POST" class="material-signup">
+            <div class="form-group">
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full-name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="form-group">
+                <label for="dob"></label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+
+                <label><input type="radio" name="status" value="student" required> Student</label>
+                <label><input type="radio" name="status" value="employee"> Employee</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="terms" required> I agree to all the terms and conditions</label>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; AccioJob. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
