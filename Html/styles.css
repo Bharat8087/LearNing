@@ -1,0 +1,50 @@
+.material-signup {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.material-signup label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.material-signup input[type="text"],
+.material-signup input[type="email"],
+.material-signup input[type="password"],
+.material-signup input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    transition: border-color 0.3s ease;
+}
+
+.material-signup input[type="text"]:focus,
+.material-signup input[type="email"]:focus,
+.material-signup input[type="password"]:focus,
+.material-signup input[type="date"]:focus {
+    border-color: #333;
+}
+
+.material-signup button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+}
