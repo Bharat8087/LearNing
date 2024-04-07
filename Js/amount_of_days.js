@@ -8,4 +8,3 @@ console.log(daysOfAYear(2022));
 console.log(daysOfAYear(2024));
 console.log(daysOfAYear(1900));
 console.log(daysOfAYear(2000));
-
