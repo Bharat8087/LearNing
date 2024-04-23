@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profession Management System</title>
+    <style>
+        .error-message {
+            color: red;
+        }
+        
+        .success-message {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Add Employee</h2>
+    <form id="employeeForm">
+        <label for="name">Name:</label><input type="text" id="name" required>
+        <label for="profession">Profession:</label><input type="text" id="profession" required>
+        <label for="age">Age:</label><input type="number" id="age" required><br>
+        <button type="button" id="addEmployee">Add Employee</button><br>
+        <p id="errorMessage" class="error-message" style="display: none;"></p>
+        <p id="successMessage" class="success-message" style="display: none;"></p>
+    </form>
+
+    <h2>Added Employees</h2>
+    <p>Total Employees: <span id="totalEmployees">0</span></p>
+    <ul id="employeeList"></ul>
+    <script src="script.js"></script>
+</body>
+
+</html>
