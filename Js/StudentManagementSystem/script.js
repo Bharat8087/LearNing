@@ -117,14 +117,19 @@ function populateTable() {
     tbody.innerHTML = "";
 
     students.forEach(student => {
-        const row = document.createElement("tr");
-        Object.values(student).forEach(value => {
-            const cell = document.createElement("td");
-            cell.textContent = value;
-            row.appendChild(cell);
-        });
+        const row = createRow(student);
         tbody.appendChild(row);
     });
+}
+
+function createRow(student) {
+    const row = document.createElement("tr");
+    Object.values(student).forEach(value => {
+        const cell = document.createElement("td");
+        cell.textContent = value;
+        row.appendChild(cell);
+    });
+    return row;
 }
 
 function searchFunction() {
@@ -149,42 +154,49 @@ function searchFunction() {
 }
 
 function sortFunctionAZ() {
-    sortTable(0);
+    sortTable(1);
 }
 
 function sortFunctionZA() {
-    sortTable(0, true);
+    sortTable(1, true);
 }
 
 function sortFunctionByMarks() {
-    sortTable(4);
+    sortTable(7, false, true);
 }
 
 function sortFunctionByPassing() {
-    sortTable(5);
+    sortTable(8);
 }
 
 function sortFunctionByClass() {
-    sortTable(3);
+    sortTable(6, false, true);
 }
 
 function sortFunctionByGender() {
-    sortTable(2);
+    sortTable(4);
 }
 
-function sortTable(column, reverse = false) {
+function sortTable(column, reverse = false, isNumeric = false) {
     const tbody = document.querySelector("#studentTable tbody");
     const rows = Array.from(tbody.querySelectorAll("tr"));
 
     const sortedRows = rows.sort((a, b) => {
-        const aValue = a.querySelectorAll("td")[column].textContent;
-        const bValue = b.querySelectorAll("td")[column].textContent;
-        return aValue.localeCompare(bValue);
-    });
+        let aValue = a.querySelectorAll("td")[column].textContent;
+        let bValue = b.querySelectorAll("td")[column].textContent;
 
-    if (reverse) {
-        sortedRows.reverse();
-    }
+        if (isNumeric) {
+            aValue = parseFloat(aValue);
+            bValue = parseFloat(bValue);
+        }
+
+        if (aValue === bValue) return 0;
+        if (reverse) {
+            return aValue > bValue ? -1 : 1;
+        } else {
+            return aValue > bValue ? 1 : -1;
+        }
+    });
 
     tbody.innerHTML = "";
     sortedRows.forEach(row => tbody.appendChild(row));
