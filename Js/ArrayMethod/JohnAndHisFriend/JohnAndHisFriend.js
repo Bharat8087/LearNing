@@ -1,56 +1,45 @@
-PrintDeveloperbyMap(employees) {
-    const developers = employees.filter(employee => employee.profession === "developer");
-    const developerNames = developers.map(dev => dev.name);
-    document.getElementById("developerNames").innerHTML = developerNames.join(", ");
+function PrintDeveloperbyMap() {
+    const developers = arr.filter(employee => employee.profession === "developer").map(developer => developer.name);
+    console.log("Developers using map:", developers);
 }
 
-function PrintDeveloperbyForEach(employees) {
-    const developerList = employees.filter(employee => employee.profession === "developer");
-    let output = "";
-    developerList.forEach(employee => {
-        output += `${employee.name}<br>`;
+function PrintDeveloperbyForEach() {
+    const developers = [];
+    arr.forEach(employee => {
+        if (employee.profession === "developer") {
+            developers.push(employee.name);
+        }
     });
-    document.getElementById("developers").innerHTML = output;
+    console.log("Developers using forEach:", developers);
 }
 
-function addData(employees) {
-    const newEmployee = { id: 4, name: "Susan", age: "20", profession: "intern" };
-    employees.push(newEmployee);
-    document.getElementById("addedEmployee").innerHTML = `Added employee: ${newEmployee.name}`;
+function addData() {
+    const id = arr.length + 1;
+    const name = prompt("Enter Name:");
+    const age = prompt("Enter Age:");
+    const profession = prompt("Enter Profession:");
+    const newEmployee = { id: id, name: name, age: age, profession: profession };
+    arr.push(newEmployee);
+    console.log("New data added:", newEmployee);
 }
 
-function removeAdmin(employees) {
-    const filteredEmployees = employees.filter(employee => employee.profession !== "admin");
-    let output = "";
-    filteredEmployees.forEach(employee => {
-        output += `${employee.name} (${employee.profession})<br>`;
-    });
-    document.getElementById("removedAdmin").innerHTML = output;
+function removeAdmin() {
+    arr = arr.filter(employee => employee.profession !== "admin");
+    console.log("Array with admin removed:", arr);
 }
 
-function ConcatinateArray(employees) {
+function ConcatinateArray() {
     const newArray = [
-        { id: 5, name: "Alice", age: "25", profession: "manager" },
-        { id: 6, name: "Bob", age: "30", profession: "designer" },
-        { id: 7, name: "Charlie", age: "22", profession: "developer" }
+        { id: 4, name: "jane", age: "22", profession: "developer" },
+        { id: 5, name: "alex", age: "23", profession: "designer" },
+        { id: 6, name: "emma", age: "24", profession: "manager" }
     ];
-
-    const concatenatedArray = employees.concat(newArray);
-    let output = "";
-    concatenatedArray.forEach(employee => {
-        output += `${employee.name} (${employee.profession})<br>`;
-    });
-    document.getElementById("concatenatedArray").innerHTML = output;
+    const concatenatedArray = arr.concat(newArray);
+    console.log("Concatenated array:", concatenatedArray);
 }
 
-const employees = [
-    { id: 1, name: "John", age: "35", profession: "developer" },
-    { id: 2, name: "Emily", age: "28", profession: "admin" },
-    { id: 3, name: "David", age: "40", profession: "developer" }
-];
-
-PrintDeveloperbyMap(employees);
-PrintDeveloperbyForEach(employees);
-addData(employees);
-removeAdmin(employees);
-ConcatinateArray(employees);
+document.getElementById("printMapButton").addEventListener("click", PrintDeveloperbyMap);
+document.getElementById("printForEachButton").addEventListener("click", PrintDeveloperbyForEach);
+document.getElementById("addDataButton").addEventListener("click", addData);
+document.getElementById("removeAdminButton").addEventListener("click", removeAdmin);
+document.getElementById("concatenateArrayButton").addEventListener("click", ConcatinateArray);
