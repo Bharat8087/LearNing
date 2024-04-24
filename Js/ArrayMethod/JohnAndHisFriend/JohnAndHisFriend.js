@@ -1,26 +1,31 @@
-function PrintDeveloperbyMap(employees) {
+PrintDeveloperbyMap(employees) {
     const developers = employees.filter(employee => employee.profession === "developer");
     const developerNames = developers.map(dev => dev.name);
-    console.log(developerNames);
+    document.getElementById("developerNames").innerHTML = developerNames.join(", ");
 }
 
 function PrintDeveloperbyForEach(employees) {
-    employees.forEach(employee => {
-        if (employee.profession === "developer") {
-            console.log(employee);
-        }
+    const developerList = employees.filter(employee => employee.profession === "developer");
+    let output = "";
+    developerList.forEach(employee => {
+        output += `${employee.name}<br>`;
     });
+    document.getElementById("developers").innerHTML = output;
 }
 
 function addData(employees) {
     const newEmployee = { id: 4, name: "Susan", age: "20", profession: "intern" };
     employees.push(newEmployee);
-    console.log("Added employee:", newEmployee);
+    document.getElementById("addedEmployee").innerHTML = `Added employee: ${newEmployee.name}`;
 }
 
 function removeAdmin(employees) {
     const filteredEmployees = employees.filter(employee => employee.profession !== "admin");
-    console.log("Employees after removing admin:", filteredEmployees);
+    let output = "";
+    filteredEmployees.forEach(employee => {
+        output += `${employee.name} (${employee.profession})<br>`;
+    });
+    document.getElementById("removedAdmin").innerHTML = output;
 }
 
 function ConcatinateArray(employees) {
@@ -31,7 +36,21 @@ function ConcatinateArray(employees) {
     ];
 
     const concatenatedArray = employees.concat(newArray);
-    console.log("Concatenated array:", concatenatedArray);
+    let output = "";
+    concatenatedArray.forEach(employee => {
+        output += `${employee.name} (${employee.profession})<br>`;
+    });
+    document.getElementById("concatenatedArray").innerHTML = output;
 }
 
-module.exports = { PrintDeveloperbyMap, PrintDeveloperbyForEach, addData, removeAdmin, ConcatinateArray };
+const employees = [
+    { id: 1, name: "John", age: "35", profession: "developer" },
+    { id: 2, name: "Emily", age: "28", profession: "admin" },
+    { id: 3, name: "David", age: "40", profession: "developer" }
+];
+
+PrintDeveloperbyMap(employees);
+PrintDeveloperbyForEach(employees);
+addData(employees);
+removeAdmin(employees);
+ConcatinateArray(employees);
