@@ -15,29 +15,16 @@ function displayMenu(menuItems) {
     const menuContainer = document.getElementById('menu-container');
     menuItems.forEach(item => {
         const menuItem = document.createElement('div');
-        menuItem.classList.add('pizza-row');
+        menuItem.classList.add('menu-item');
         menuItem.innerHTML = `
-            <img src="${item.imgSrc}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>$${item.price}</p>
-        `;
+                <img src="${item.imgSrc}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>$${item.price}</p>
+            `;
         menuContainer.appendChild(menuItem);
     });
-}
 
-async function restaurantProcess() {
-    try {
-        await getMenu();
-        const order = await takeOrder();
-        console.log('Order taken:', order);
-        const prepStatus = await orderPrep();
-        console.log('Order preparation:', prepStatus);
-        const paymentStatus = await payOrder();
-        console.log('Payment status:', paymentStatus);
-        thankyouFnc();
-    } catch (error) {
-        console.error('Error in restaurant process:', error);
-    }
+
 }
 
 function takeOrder() {
@@ -74,6 +61,21 @@ function payOrder() {
 
 function thankyouFnc() {
     alert('Thank you for eating with us today!');
+}
+
+async function restaurantProcess() {
+    try {
+        await getMenu();
+        const order = await takeOrder();
+        console.log('Order:', order);
+        const prepStatus = await orderPrep();
+        console.log('Preparation Status:', prepStatus);
+        const paymentStatus = await payOrder();
+        console.log('Payment Status:', paymentStatus);
+        thankyouFnc();
+    } catch (error) {
+        console.error('Error in restaurant process:', error);
+    }
 }
 
 restaurantProcess();
