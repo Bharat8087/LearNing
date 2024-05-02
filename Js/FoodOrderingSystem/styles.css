@@ -77,46 +77,44 @@ input[type="text"] {
 }
 
 #main-scrollable-container {
-    flex: 1;
+    flex-wrap: wrap;
     padding: 20px;
 }
 
 #backimg {
     width: 100%;
     height: auto;
+    max-height: 100px;
+    object-fit: cover;
 }
 
+
+}
 .pizza-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .pizza-row {
     display: flex;
     flex-grow: 1;
 }
-
 .pizza-row img {
     width: calc(33.33% - 20px);
     height: auto;
 }
-
 #menu-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .nav-links li a {
     text-decoration: none;
     color: white;
 }
-
 .nav-links li a:hover {
     text-decoration: underline;
 }
-
 .nav-links li:nth-child(2) a,
 .nav-links li:nth-child(3) a {
     color: red;
