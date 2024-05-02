@@ -2,6 +2,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    width: 6610px;
+    height: 5121px;
+    top: -968px;
+    left: -2227px;
+    gap: 0px;
+    opacity: 0;
 }
 
 nav {
