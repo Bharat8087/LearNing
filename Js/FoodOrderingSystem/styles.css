@@ -32,8 +32,8 @@ nav {
 }
 
 input[type="text"] {
-    height: 46px;
-    width: 812px;
+    height: 32px;
+    width: 600px;
     padding: 10px;
     font-size: 16px;
     border: none;
