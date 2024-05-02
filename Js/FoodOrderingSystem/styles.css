@@ -1,13 +1,8 @@
-/* Reset default margin and padding */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-
-/* Body styles */
 
 body {
     font-family: Arial, sans-serif;
@@ -15,9 +10,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
-
-/* Header styles */
 
 header {
     background-color: #333;
@@ -45,15 +37,14 @@ nav ul {
     color: #fff;
 }
 
-
-/* Main container styles */
+.nav-links a[href="#Signup"],
+.nav-links a[href="#Login"] {
+    color: red;
+}
 
 #main {
     display: flex;
 }
-
-
-/* Sidebar styles */
 
 #sidebar {
     background-color: #ddd;
@@ -77,16 +68,19 @@ nav ul {
     color: #333;
 }
 
-
-/* Main scrollable container styles */
-
 #main-scrollable-container {
     flex-grow: 1;
     padding: 20px;
 }
 
-
-/* Menu container styles */
+#logos {
+    width: 298px;
+    height: 298px;
+    top: 32px;
+    left: 33px;
+    gap: 0px;
+    opacity: 0px;
+}
 
 .pizza-container {
     display: grid;
