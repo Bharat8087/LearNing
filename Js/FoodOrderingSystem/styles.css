@@ -1,0 +1,114 @@
+/* Reset default margin and padding */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Body styles */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Header styles */
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.nav-links li:last-child {
+    margin-right: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+/* Main container styles */
+
+#main {
+    display: flex;
+}
+
+
+/* Sidebar styles */
+
+#sidebar {
+    background-color: #ddd;
+    width: 200px;
+    padding: 20px;
+}
+
+#sidebar h2 {
+    margin-bottom: 10px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+}
+
+#sidebar ul li {
+    margin-bottom: 5px;
+}
+
+#sidebar ul li a {
+    color: #333;
+}
+
+
+/* Main scrollable container styles */
+
+#main-scrollable-container {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+
+/* Menu container styles */
+
+.pizza-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.pizza-row {
+    text-align: center;
+}
+
+.pizza-row img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.pizza-row h3 {
+    margin-top: 10px;
+}
+
+.pizza-row p {
+    margin-top: 5px;
+    font-weight: bold;
+}
