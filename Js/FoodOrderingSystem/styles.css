@@ -15,16 +15,20 @@ header {
     background-color: #333;
     color: #fff;
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    align-items: center;
 }
 
 .nav-links li {
-    display: inline-block;
     margin-right: 10px;
 }
 
@@ -37,13 +41,29 @@ nav ul {
     color: #fff;
 }
 
-.nav-links a[href="#Signup"],
-.nav-links a[href="#Login"] {
-    color: red;
+input[type="text"] {
+    height: 48px;
+    width: 812px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"]::placeholder {
+    color: #999;
 }
 
 #main {
     display: flex;
+}
+
+#logos {
+    width: 298px;
+    height: 298px;
+    top: 32px;
+    left: 33px;
+    gap: 0px;
+    opacity: 0px;
 }
 
 #sidebar {
@@ -73,15 +93,6 @@ nav ul {
     padding: 20px;
 }
 
-#logos {
-    width: 298px;
-    height: 298px;
-    top: 32px;
-    left: 33px;
-    gap: 0px;
-    opacity: 0px;
-}
-
 .pizza-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -105,4 +116,9 @@ nav ul {
 .pizza-row p {
     margin-top: 5px;
     font-weight: bold;
+}
+
+.nav-links a[href="signup"],
+.nav-links a[href="login"] {
+    color: red;
 }
