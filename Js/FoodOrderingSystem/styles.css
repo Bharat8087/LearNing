@@ -1,60 +1,51 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
     margin: 0;
     padding: 0;
 }
 
-header {
+nav {
     background-color: #333;
-    color: #fff;
+    color: white;
+    text-align: center;
     padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-nav ul {
+.nav-links {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    align-items: center;
 }
 
 .nav-links li {
-    margin-right: 10px;
+    display: inline;
+    margin: 0 10px;
 }
 
-.nav-links li:last-child {
-    margin-right: 0;
-}
-
-.nav-links a {
+.nav-links li a {
     text-decoration: none;
-    color: #fff;
+    color: white;
+}
+
+.nav-links li a:hover {
+    text-decoration: underline;
 }
 
 input[type="text"] {
-    height: 48px;
+    height: 46px;
     width: 812px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-input[type="text"]::placeholder {
-    color: #999;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
 }
 
 #main {
     display: flex;
+}
+
+#sidebar {
+    background-color: #f4f4f4;
+    padding: 20px;
 }
 
 #logos {
@@ -63,62 +54,56 @@ input[type="text"]::placeholder {
     top: 32px;
     left: 33px;
     gap: 0px;
-    opacity: 0px;
+    opacity: 1;
+    position: relative;
 }
 
-#sidebar {
-    background-color: #ddd;
-    width: 200px;
-    padding: 20px;
-}
-
-#sidebar h2 {
-    margin-bottom: 10px;
-}
-
-#sidebar ul {
-    list-style-type: none;
-}
-
-#sidebar ul li {
-    margin-bottom: 5px;
-}
-
-#sidebar ul li a {
-    color: #333;
+#logos h2 {
+    margin-top: 20px;
 }
 
 #main-scrollable-container {
-    flex-grow: 1;
+    flex: 1;
     padding: 20px;
 }
 
+#backimg {
+    width: 100%;
+    height: auto;
+}
+
 .pizza-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .pizza-row {
-    text-align: center;
+    display: flex;
+    flex-grow: 1;
 }
 
 .pizza-row img {
-    max-width: 100%;
+    width: calc(33.33% - 20px);
     height: auto;
-    border-radius: 10px;
 }
 
-.pizza-row h3 {
-    margin-top: 10px;
+#menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.pizza-row p {
-    margin-top: 5px;
-    font-weight: bold;
+.nav-links li a {
+    text-decoration: none;
+    color: white;
 }
 
-.nav-links a[href="signup"],
-.nav-links a[href="login"] {
+.nav-links li a:hover {
+    text-decoration: underline;
+}
+
+.nav-links li:nth-child(2) a,
+.nav-links li:nth-child(3) a {
     color: red;
 }
