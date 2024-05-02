@@ -17,10 +17,10 @@ function displayMenu(menuItems) {
         const menuItem = document.createElement('div');
         menuItem.classList.add('menu-item');
         menuItem.innerHTML = `
-                <img src="${item.imgSrc}" alt="${item.name}">
-                <h3>${item.name}</h3>
-                <p>$${item.price}</p>
-            `;
+        <img src="${item.imgSrc}" alt="${item.name}" width="422" height="320">
+        <h3>${item.name}</h3>
+        <p>$${item.price}</p>
+    `;
         menuContainer.appendChild(menuItem);
     });
 
