@@ -5,7 +5,12 @@ async function getMenu() {
         const menuContainer = document.getElementById('menu-container');
         data.forEach(item => {
             const menuItem = document.createElement('div');
-            menuItem.textContent = `${item.name} - ${item.price}`;
+            menuItem.innerHTML = `
+                <div>
+                    <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px;">
+                    <p>${item.name} - ${item.price}</p>
+                </div>
+            `;
             menuContainer.appendChild(menuItem);
         });
     } catch (error) {
