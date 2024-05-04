@@ -5,18 +5,19 @@ async function getMenu() {
         const menuContainer = document.getElementById('menu-container');
         data.forEach(item => {
             const menuItem = document.createElement('div');
-            menuItem.innerHTML = `
-                <div>
-                    <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px;">
-                    <p>${item.name} - ${item.price}</p>
-                </div>
-            `;
+            const img = document.createElement('img');
+            img.src = item.image;
+            img.style.maxWidth = '100px';
+            img.style.maxHeight = '100px';
+            menuItem.textContent = `${item.name} - ${item.price}`;
+            menuItem.appendChild(img);
             menuContainer.appendChild(menuItem);
         });
     } catch (error) {
         console.error('Error fetching menu:', error);
     }
 }
+
 
 async function takeOrder() {
     return new Promise(resolve => {
