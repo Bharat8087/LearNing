@@ -1,9 +1,14 @@
+console.log('Script loaded');
+
 async function getMenu() {
     try {
         const response = await fetch('https://raw.githubusercontent.com/saksham-accio/f2_contest_3/main/food.json');
         const data = await response.json();
+        console.log('Data:', data);
         const menuContainer = document.getElementById('menu-container');
+        console.log('Menu container:', menuContainer);
         data.forEach(item => {
+            console.log('Item:', item);
             const menuItem = document.createElement('div');
             const img = document.createElement('img');
             img.src = item.image;
@@ -17,7 +22,6 @@ async function getMenu() {
         console.error('Error fetching menu:', error);
     }
 }
-
 
 async function takeOrder() {
     return new Promise(resolve => {
