@@ -2,12 +2,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    width: 6610px;
-    height: 5121px;
-    top: -968px;
-    left: -2227px;
-    gap: 0px;
-    opacity: 0;
+}
+
+h6 {
+    color: red;
 }
 
 nav {
@@ -32,6 +30,8 @@ nav {
 }
 
 .nav-links {
+    padding-left: 150px;
+    align-item: center;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -61,6 +61,8 @@ input[type="text"] {
 
 #main {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0px;
 }
 
 #sidebar {
@@ -68,23 +70,9 @@ input[type="text"] {
     padding: 20px;
 }
 
-#logos {
-    width: 298px;
-    height: 298px;
-    top: 32px;
-    left: 33px;
-    gap: 0px;
-    opacity: 1;
-    position: relative;
-}
-
-#logos h2 {
-    margin-top: 20px;
-}
-
 #main-scrollable-container {
-    flex-wrap: wrap;
     padding: 20px;
+    flex-grow: 1;
 }
 
 #backimg {
@@ -94,33 +82,37 @@ input[type="text"] {
     object-fit: cover;
 }
 
-
-}
 .pizza-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
+
 .pizza-row {
     display: flex;
     flex-grow: 1;
 }
+
 .pizza-row img {
     width: calc(33.33% - 20px);
     height: auto;
 }
+
 #menu-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
+
 .nav-links li a {
     text-decoration: none;
     color: white;
 }
+
 .nav-links li a:hover {
     text-decoration: underline;
 }
+
 .nav-links li:nth-child(2) a,
 .nav-links li:nth-child(3) a {
     color: red;
