@@ -1,21 +1,16 @@
-console.log('Script loaded');
-
 async function getMenu() {
     try {
         const response = await fetch('https://raw.githubusercontent.com/saksham-accio/f2_contest_3/main/food.json');
-        const data = await response.json();
-        console.log('Data:', data);
-        const menuContainer = document.getElementById('menu-container');
-        console.log('Menu container:', menuContainer);
-        data.forEach(item => {
-            console.log('Item:', item);
+        const menuItems = await response.json();
+        const menuContainer = document.getElementById('menu');
+        menuItems.forEach(item => {
             const menuItem = document.createElement('div');
-            const img = document.createElement('img');
-            img.src = item.image;
-            img.style.maxWidth = '100px';
-            img.style.maxHeight = '100px';
-            menuItem.textContent = `${item.name} - ${item.price}`;
-            menuItem.appendChild(img);
+            menuItem.classList.add('menu-item');
+            menuItem.innerHTML = `
+          <img src="${item.imgSrc}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>Price: $${item.price.toFixed(2)}</p>
+        `;
             menuContainer.appendChild(menuItem);
         });
     } catch (error) {
@@ -23,21 +18,22 @@ async function getMenu() {
     }
 }
 
-async function takeOrder() {
+function takeOrder() {
     return new Promise(resolve => {
         setTimeout(() => {
-            const burgers = ['Classic Burger', 'Cheeseburger', 'Veggie Burger'];
-            const order = [];
-            for (let i = 0; i < 3; i++) {
-                const randomIndex = Math.floor(Math.random() * burgers.length);
-                order.push(burgers[randomIndex]);
-            }
+            const order = {
+                burgers: [
+                    { name: 'Cheeseburger', price: 5.99 },
+                    { name: 'Burger', price: 4.99 },
+                    { name: 'Double Cheeseburger', price: 7.99 }
+                ]
+            };
             resolve(order);
         }, 2500);
     });
 }
 
-async function orderPrep() {
+function orderPrep() {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve({ order_status: true, paid: false });
@@ -45,7 +41,7 @@ async function orderPrep() {
     });
 }
 
-async function payOrder() {
+function payOrder() {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve({ order_status: true, paid: true });
@@ -53,25 +49,21 @@ async function payOrder() {
     });
 }
 
-function thankYou() {
+function thankyouFnc() {
     alert('Thank you for eating with us today!');
 }
 
-async function startOrder() {
-    try {
-        await getMenu();
-        const order = await takeOrder();
-        console.log('Order:', order);
-        const prepStatus = await orderPrep();
-        console.log('Preparation Status:', prepStatus);
-        const paymentStatus = await payOrder();
-        console.log('Payment Status:', paymentStatus);
-        if (paymentStatus.paid) {
-            thankYou();
-        }
-    } catch (error) {
-        console.error('Error:', error);
+async function placeOrder() {
+    await getMenu();
+    const order = await takeOrder();
+    console.log('Order taken:', order);
+    const prepStatus = await orderPrep();
+    console.log('Order preparation:', prepStatus);
+    const paymentStatus = await payOrder();
+    console.log('Payment status:', paymentStatus);
+    if (paymentStatus.paid) {
+        thankyouFnc();
     }
 }
 
-startOrder();
+getMenu();
