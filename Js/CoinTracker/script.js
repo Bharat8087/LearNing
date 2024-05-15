@@ -33,7 +33,7 @@ function renderTable(data) {
             <td>${coin.current_price}</td>
             <td>${coin.total_volume}</td>
             <td>${coin.market_cap}</td>
-            <td>${coin.price_change_percentage_24h}</td>
+            <td>${coin.price_change_percentage}</td>
         `;
         tableBody.appendChild(row);
     });
@@ -52,7 +52,7 @@ function sortData(criteria) {
     if (criteria === 'market_cap') {
         sortedData = [...cryptoData].sort((a, b) => b.market_cap - a.market_cap);
     } else if (criteria === 'percentage_change') {
-        sortedData = [...cryptoData].sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
+        sortedData = [...cryptoData].sort((a, b) => b.price_change_percentage - a.price_change_percentage);
     }
     renderTable(sortedData);
 }
