@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="protected">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html">Cart</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logout">Logout</a>
+    </nav>
+    <div class="sidebar">
+    </div>
+    <div class="main-content">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <div class="toggle-buttons">
+            <button data-category="men's clothing">Men's</button>
+            <button data-category="women's clothing">Women's</button>
+            <button data-category="electronics">Electronics</button>
+            <button data-category="jewelery">Jewelery</button>
+        </div>
+        <div id="productList" class="product-list"></div>
+    </div>
+    <footer>
+        <p>&copy; 2023 My Shop</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
