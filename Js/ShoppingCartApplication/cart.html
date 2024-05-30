@@ -4,29 +4,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .cart-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        
+        .items-section {
+            flex-grow: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .item {
+            flex-basis: calc(33.33% - 10px);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .item img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        
+        .item h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        
+        .item p {
+            margin: 5px 0;
+        }
+        
+        .remove-btn {
+            background-color: #ff6347;
+            color: #fff;
+            border: 1.5px solid blue;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        
+        .remove-btn:hover {
+            background-color: black;
+        }
+        
+        .total {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        
+        .checkout-btn {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .rzp-button1 {
+            background-color: aqua;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        
+        rzp-button1:hover {
+            background-color: #00bcd4;
+        }
+    </style>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+
     <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="cart.html">My Cart</a>
-        <a href="profile.html">Profile</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign Up</a>
-    </nav>
-    <main>
-        <h1>My Cart</h1>
-        <div id="cartItems">
+        <div class="container">
+            <div id="header"></div>
+
+            <div class="cart-container">
+                <section class="items-section">
+                    <div class="item">
+                        <img src="https://github.com/jayeshsadhwani99/f3-project/blob/main/shop/tshirt.png?raw=true" alt="Shirt">
+                        <h2>Title: Shirt</h2>
+                        <p>Price: $100</p>
+                        <button class="remove-btn">Remove From Cart</button>
+                    </div>
+                    <div class="item">
+                        <img src="https://github.com/jayeshsadhwani99/f3-project/blob/main/shop/tshirt.png?raw=true" alt="Shirt">
+                        <h2>Title: Shirt</h2>
+                        <p>Price: $100</p>
+                        <button class="remove-btn">Remove From Cart</button>
+                    </div>
+                    <div class="item">
+                        <img src="https://github.com/jayeshsadhwani99/f3-project/blob/main/shop/tshirt.png?raw=true" alt="Shirt">
+                        <h2>Title: Shirt</h2>
+                        <p>Price: $100</p>
+                        <button class="remove-btn">Remove From Cart</button>
+                    </div>
+                    <div class="item">
+                        <img src="https://github.com/jayeshsadhwani99/f3-project/blob/main/shop/tshirt.png?raw=true" alt="Shirt">
+                        <h2>Title: Shirt</h2>
+                        <p>Price: $100</p>
+                        <button class="remove-btn">Remove From Cart</button>
+                    </div>
+                    <div class="item">
+                        <img src="https://github.com/jayeshsadhwani99/f3-project/blob/main/shop/tshirt.png?raw=true" alt="Shirt">
+                        <h2>Title: Shirt</h2>
+                        <p>Price: $100</p>
+                        <button class="remove-btn">Remove From Cart</button>
+                    </div>
+                    <div class="item">
+                        <img src="https://github.com/jayeshsadhwani99/f3-project/blob/main/shop/tshirt.png?raw=true" alt="Shirt">
+                        <h2>Title: Shirt</h2>
+                        <p>Price: $100</p>
+                        <button class="remove-btn">Remove From Cart</button>
+                    </div>
+                </section>
+
+                <section class="checkout-section">
+                    <div class="total">
+                        <p>Total: <span id="total-price">$900</span></p>
+                    </div>
+                    <button class="checkout-btn">Click To Checkout</button>
+                </section>
+            </div>
         </div>
-        <button id="checkoutButton">Checkout</button>
-    </main>
-    <footer>© 2023 My Store</footer>
-    <script src="scripts.js"></script>
+    </nav>
+    <button id="btn">Pay Now</button>
+
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    <script src="scripts.js"></script>
+
 </body>
 
 </html>

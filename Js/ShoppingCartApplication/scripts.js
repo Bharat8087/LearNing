@@ -1,152 +1,123 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const signupForm = document.getElementById('signupForm');
-    const loginForm = document.getElementById('loginForm');
-    const profileForm = document.getElementById('profileForm');
+    console.log('DOM fully loaded and parsed');
 
-    if (signupForm) {
-        signupForm.addEventListener('submit', handleSignup);
-    }
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
-
-    if (profileForm) {
-        profileForm.addEventListener('submit', handleProfileUpdate);
-        loadProfileData();
-    }
-
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', handleSearch);
-    }
-
-    const productList = document.getElementById('productList');
-    if (productList) {
-        fetchProducts();
-    }
-
-    const toggleButtons = document.querySelectorAll('.toggle-buttons button');
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', handleToggle);
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log(`Navigating to ${event.target.getAttribute('href')}`);
+        });
     });
 
-    const checkoutButton = document.getElementById('checkoutButton');
-    if (checkoutButton) {
-        checkoutButton.addEventListener('click', handleCheckout);
-    }
-
-    function handleSignup(event) {
-        event.preventDefault();
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
-
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        if (users.find(user => user.email === email)) {
-            alert('Email already in use');
-            return;
-        }
-
-        users.push({ firstName, lastName, email, password });
-        localStorage.setItem('users', JSON.stringify(users));
-        alert('Signup successful');
-        window.location.href = 'login.html';
-    }
-
-    function handleLogin(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        const user = users.find(user => user.email === email && user.password === password);
-
-        if (!user) {
-            alert('Invalid email or password');
-            return;
-        }
-
-        const token = generateToken();
-        localStorage.setItem('currentUser', JSON.stringify({...user, token }));
-        alert('Login successful');
-        window.location.href = 'shop.html';
-    }
-
-    function handleProfileUpdate(event) {
-        event.preventDefault();
-        const firstName = document.getElementById('profileFirstName').value;
-        const lastName = document.getElementById('profileLastName').value;
-        const email = document.getElementById('profileEmail').value;
-        const password = document.getElementById('profilePassword').value;
-
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        users = users.map(user => {
-            if (user.email === currentUser.email) {
-                return { firstName, lastName, email, password };
-            }
-            return user;
+    const heroImage = document.querySelector('.hero-image img');
+    if (heroImage) {
+        heroImage.addEventListener('click', () => {
+            alert('You clicked the hero image!');
         });
-
-        localStorage.setItem('users', JSON.stringify(users));
-        localStorage.setItem('currentUser', JSON.stringify({ firstName, lastName, email, password }));
-        alert('Profile updated');
     }
 
-    function handleSearch(event) {
-        const query = event.target.value.toLowerCase();
-        filterProducts(query);
+    const addBtns = document.querySelectorAll('#addBtn');
+    addBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            alert('Item added to cart!');
+        });
+    });
+
+    const filterButtons = document.querySelectorAll('.filter');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            document.querySelector('.filter.active').classList.remove('active');
+            button.classList.add('active');
+            filterItems(button.textContent);
+        });
+    });
+
+    const searchInput = document.querySelector('input[type="text"]');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.items .item');
+            items.forEach(item => {
+                const itemName = item.querySelector('.price').textContent.toLowerCase();
+                if (itemName.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
     }
 
-    function handleToggle(event) {
-        const category = event.target.dataset.category;
-        filterProducts(undefined, category);
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const rangeInput = document.querySelector('input[type="range"]');
+    if (checkboxes) {
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filterByAttributes);
+        });
+    }
+    if (rangeInput) {
+        rangeInput.addEventListener('input', filterByAttributes);
     }
 
-    function handleCheckout() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const options = {
-            "key": "rzp_test_PV1oQ0oMtgXOsq",
-            "amount": 1000,
-            "currency": "INR",
-            "name": "My Shop",
-            "description": "Test Transaction",
-            "handler": function(response) {
-                alert("Payment Successful: " + response.razorpay_payment_id);
-                localStorage.removeItem('cart');
-                displayCartItems();
-            },
-            "prefill": {
-                "name": currentUser.firstName + " " + currentUser.lastName,
-                "email": currentUser.email
-            }
-        };
-        const rzp1 = new Razorpay(options);
-        rzp1.open();
-    }
+    fetch('https://fakestoreapi.com/products')
+        .then(response => response.json())
+        .then(products => {
+            displayProducts(products);
+        })
+        .catch(error => console.error('Error fetching products:', error));
 
-    function fetchProducts() {
-        fetch('https://fakestoreapi.com/products')
-            .then(res => res.json())
-            .then(products => {
-                products = products.map(product => ({
-                    ...product,
-                    Colours: getRandomColors(),
-                    sizes: getRandomSizes()
-                }));
-                localStorage.setItem('products', JSON.stringify(products));
-                displayProducts(products);
-            })
-            .catch(error => console.error('Error fetching products:', error));
+    function displayProducts(products) {
+        const itemsContainer = document.querySelector('.items');
+        itemsContainer.innerHTML = '';
+
+        products.forEach(product => {
+            const item = document.createElement('div');
+            item.classList.add('item');
+            item.dataset.category = product.category;
+
+            const image = document.createElement('img');
+            image.src = product.image;
+            image.alt = product.title;
+            item.appendChild(image);
+
+            const title = document.createElement('h3');
+            title.textContent = product.title;
+            item.appendChild(title);
+
+            const price = document.createElement('p');
+            price.classList.add('price');
+            price.textContent = `$${product.price.toFixed(2)}`;
+            item.appendChild(price);
+
+            const description = document.createElement('p');
+            description.textContent = product.description;
+            item.appendChild(description);
+
+            const colors = getRandomColors();
+            const sizes = getRandomSizes();
+
+            const colorDiv = document.createElement('div');
+            colorDiv.classList.add('colors');
+            colors.forEach(color => {
+                const colorCircle = document.createElement('div');
+                colorCircle.classList.add('circle');
+                colorCircle.style.backgroundColor = color;
+                colorDiv.appendChild(colorCircle);
+            });
+            item.appendChild(colorDiv);
+
+            const sizeDiv = document.createElement('div');
+            sizeDiv.classList.add('sizes');
+            sizes.forEach(size => {
+                const sizeButton = document.createElement('button');
+                sizeButton.textContent = size;
+                sizeDiv.appendChild(sizeButton);
+            });
+            item.appendChild(sizeDiv);
+
+            itemsContainer.appendChild(item);
+        });
     }
 
     function getRandomColors() {
@@ -155,106 +126,226 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getRandomSizes() {
-        const sizes = ['s', 'm', 'l', 'xl'];
-        return Array.from({ length: 2 }, () => sizes[Math.floor(Math.random() * sizes.length)]);
+        const sizes = ['S', 'M', 'L', 'XL'];
+        return Array.from({ length: 3 }, () => sizes[Math.floor(Math.random() * sizes.length)]);
     }
 
-    function displayProducts(products) {
-        const productList = document.getElementById('productList');
-        productList.innerHTML = '';
-        products.forEach(product => {
-            const productDiv = document.createElement('div');
-            productDiv.classList.add('product');
-            productDiv.innerHTML = `
-                <img src="${product.image}" alt="${product.title}">
-                <h2>${product.title}</h2>
-                <p>$${product.price}</p>
-                <p>Colours: ${product.Colours.join(', ')}</p>
-                <p>Sizes: ${product.sizes.join(', ')}</p>
-                <button onclick="addToCart(${product.id})">Add to Cart</button>
-            `;
-            productList.appendChild(productDiv);
+    function filterItems(category) {
+        const items = document.querySelectorAll('.items .item');
+        items.forEach(item => {
+            if (category === 'All' || item.dataset.category.toLowerCase() === category.toLowerCase()) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
         });
     }
 
-    function filterProducts(query = '', category = '') {
-        let products = JSON.parse(localStorage.getItem('products')) || [];
-        if (query) {
-            products = products.filter(product => product.title.toLowerCase().includes(query));
-        }
-        if (category) {
-            products = products.filter(product => product.category.toLowerCase() === category.toLowerCase());
-        }
-        displayProducts(products);
-    }
+    function filterByAttributes() {
+        const selectedColors = Array.from(document.querySelectorAll('input[name="color"]:checked')).map(cb => cb.nextElementSibling.textContent.toLowerCase());
+        const selectedSizes = Array.from(document.querySelectorAll('input[name="size"]:checked')).map(cb => cb.nextElementSibling.textContent.toLowerCase());
+        const selectedPriceRanges = Array.from(document.querySelectorAll('input[name="prange"]:checked')).map(cb => cb.nextElementSibling.textContent.toLowerCase());
+        const selectedRating = rangeInput ? rangeInput.value : 0;
 
-    window.addToCart = function(productId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const products = JSON.parse(localStorage.getItem('products')) || [];
-        const product = products.find(product => product.id === productId);
-        const existingProduct = cart.find(item => item.id === productId);
+        const items = document.querySelectorAll('.items .item');
+        items.forEach(item => {
+            const itemColors = Array.from(item.querySelectorAll('.circle')).map(circle => circle.style.backgroundColor.toLowerCase());
+            const itemSizes = item.querySelector('.sizes') ? Array.from(item.querySelectorAll('.sizes button')).map(button => button.textContent.toLowerCase()) : [];
+            const itemPrice = parseFloat(item.querySelector('.price').textContent.replace('$', ''));
+            const itemRating = 3;
 
-        if (existingProduct) {
-            existingProduct.quantity += 1;
-        } else {
-            cart.push({...product, quantity: 1 });
-        }
+            const matchesColor = selectedColors.length === 0 || selectedColors.some(color => itemColors.includes(color));
+            const matchesSize = selectedSizes.length === 0 || selectedSizes.some(size => itemSizes.includes(size));
+            const matchesPrice = selectedPriceRanges.length === 0 || selectedPriceRanges.some(range => {
+                const [min, max] = range.replace('$', '').split(' to ').map(Number);
+                return itemPrice >= min && (max ? itemPrice <= max : true);
+            });
+            const matchesRating = selectedRating == 0 || itemRating >= selectedRating;
 
-        localStorage.setItem('cart', JSON.stringify(cart));
-        displayCartItems();
-    }
-
-    function displayCartItems() {
-        const cartItems = document.getElementById('cartItems');
-        if (!cartItems) return;
-
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cartItems.innerHTML = '';
-        cart.forEach(item => {
-            const cartItemDiv = document.createElement('div');
-            cartItemDiv.classList.add('cart-item');
-            cartItemDiv.innerHTML = `
-                <h2>${item.title}</h2>
-                <p>Quantity: ${item.quantity}</p>
-                <p>$${item.price}</p>
-                <button onclick="removeFromCart(${item.id})">Remove</button>
-            `;
-            cartItems.appendChild(cartItemDiv);
+            if (matchesColor && matchesSize && matchesPrice && matchesRating) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
         });
     }
 
-    window.removeFromCart = function(productId) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart = cart.filter(item => item.id !== productId);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        displayCartItems();
+    const removeButtons = document.querySelectorAll('.remove-btn');
+    const totalPriceElement = document.getElementById('total-price');
+    let total = 900;
+
+    removeButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const item = event.target.closest('.item');
+            const price = parseFloat(item.querySelector('.price').textContent.replace('$', ''));
+            item.remove();
+            updateTotalPrice(price);
+        });
+    });
+
+    function updateTotalPrice(price) {
+        total -= price;
+        totalPriceElement.textContent = `$${total}`;
     }
 
-    function generateToken() {
-        return [...Array(16)].map(() => Math.random().toString(36)[2]).join('');
+    const form = document.querySelector('form');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    form.addEventListener('submit', (event) => {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            event.preventDefault();
+            alert('Passwords do not match. Please try again.');
+        }
+    });
+
+    const signUpForm = document.getElementById('signUpForm');
+    if (signUpForm) {
+        signUpForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            localStorage.setItem('firstName', firstName);
+            localStorage.setItem('lastName', lastName);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+
+            alert('User information saved!');
+        });
     }
 
-    function ensureLoggedIn() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser) {
-            window.location.href = 'login.html';
+    const loginForm = document.getElementById('loginForm');
+    const logoutLink = document.getElementById('logout');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email === 'abc@gmail.com' && password === '1234') {
+                alert('Login successful!');
+                localStorage.setItem('loggedIn', 'true');
+                window.location.href = 'profile.html';
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        });
+    }
+
+    if (logoutLink) {
+        logoutLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            localStorage.removeItem('loggedIn');
+            alert('You have been logged out.');
+            window.location.href = 'index.html';
+        });
+
+        if (localStorage.getItem('loggedIn') === 'true') {
+            alert('You are already logged in.');
+            window.location.href = 'profile.html';
         }
     }
 
-    function loadProfileData() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser) {
-            window.location.href = 'login.html';
-            return;
+    const profileForm = document.getElementById('profileForm');
+    if (profileForm) {
+        profileForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+
+            localStorage.setItem('firstName', firstName);
+            localStorage.setItem('lastName', lastName);
+
+            alert('Profile information saved!');
+        });
+
+        if (localStorage.getItem('firstName')) {
+            document.getElementById('firstName').value = localStorage.getItem('firstName');
         }
-
-        document.getElementById('profileFirstName').value = currentUser.firstName;
-        document.getElementById('profileLastName').value = currentUser.lastName;
-        document.getElementById('profileEmail').value = currentUser.email;
-        document.getElementById('profilePassword').value = currentUser.password;
+        if (localStorage.getItem('lastName')) {
+            document.getElementById('lastName').value = localStorage.getItem('lastName');
+        }
     }
 
-    if (document.body.classList.contains('protected')) {
-        ensureLoggedIn();
+    const editPasswordForm = document.getElementById('editPasswordForm');
+    if (editPasswordForm) {
+        editPasswordForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const oldPassword = document.getElementById('oldPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            const storedPassword = localStorage.getItem('password');
+
+            if (oldPassword !== storedPassword) {
+                alert('Old password is incorrect.');
+            } else if (newPassword !== confirmNewPassword) {
+                alert('New passwords do not match.');
+            } else {
+                localStorage.setItem('password', newPassword);
+                alert('Password changed successfully!');
+            }
+        });
     }
+
+    const logoutForm = document.getElementById('logoutForm');
+    if (logoutForm) {
+        logoutForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            localStorage.clear();
+            alert('You have been logged out.');
+            window.location.href = 'index.html';
+        });
+    }
+
+    const paymentBtns = document.querySelectorAll('btn');
+    paymentBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.closest('.item');
+            const price = parseFloat(item.querySelector('.price').textContent.replace('$', ''));
+
+            const options = {
+                key: 'YOUR_RAZORPAY_KEY',
+                amount: price * 100,
+                currency: 'USD',
+                name: 'Your Store',
+                description: 'Payment for Product',
+                image: 'https://example.com/your_logo.png',
+                handler: function(response) {
+                    alert('Payment successful');
+                },
+                prefill: {
+                    name: 'Customer Name',
+                    email: 'customer@example.com',
+                    contact: '9999999999'
+                },
+                notes: {
+                    address: 'Your Store Address'
+                },
+                theme: {
+                    color: '#F37254'
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        });
+    });
+});
+
+function loadHTML(file, elementId) {
+    fetch(file)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById(elementId).innerHTML = data;
+        })
+        .catch(error => console.error('Error loading HTML:', error));
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadHTML('shared/Header.html', 'header');
 });

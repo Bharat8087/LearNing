@@ -2,37 +2,95 @@
 <html lang="en">
 
 <head>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1.5px solid blue;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        /* header {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+        } */
+        
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        main h1 {
+            color: black;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 10px;
+        }
+        
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .logout-button {
+            margin-top: 10px;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>My Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="cart.html">My Cart</a>
-        <a href="profile.html">Profile</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign Up</a>
-    </nav>
+    <div id="header"></div>
     <main>
-        <h1>Profile</h1>
+        <h1>My Profile</h1>
         <form id="profileForm">
-            <label for="profileFirstName">First Name:</label>
-            <input type="text" id="profileFirstName" required>
-            <label for="profileLastName">Last Name:</label>
-            <input type="text" id="profileLastName" required>
-            <label for="profileEmail">Email:</label>
-            <input type="email" id="profileEmail" required>
-            <label for="profilePassword">Password:</label>
-            <input type="password" id="profilePassword" required>
-            <button type="submit">Update Profile</button>
+            <div class="form-group">
+                <input type="text" id="firstName" placeholder="First Name" required><br>
+            </div>
+            <div class="form-group">
+                <input type="text" id="lastName" placeholder="Last Name" required><br>
+            </div>
+            <button type="submit">Save Info</button>
+        </form>
+
+        <h1>Edit Password</h1>
+        <form id="editPasswordForm">
+            <div class="form-group">
+                <input type="password" id="oldPassword" placeholder="Old Password" required><br>
+            </div>
+            <div class="form-group">
+                <input type="password" id="newPassword" placeholder="New Password" required><br>
+            </div>
+            <div class="form-group">
+                <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" required><br>
+            </div>
+            <button type="submit">Change Password</button><br>
+        </form>
+
+        <form id="logoutForm">
+            <button type="submit" class="logout-button">Log Out</button>
         </form>
     </main>
-    <footer>© 2023 My Store</footer>
     <script src="scripts.js"></script>
 </body>
 
