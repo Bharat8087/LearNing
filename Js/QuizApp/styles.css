@@ -2,6 +2,26 @@ body {
     font-family: Arial, sans-serif;
 }
 
+#banking {
+    background-color: lightblue;
+}
+
+#railway {
+    background-color: lightcoral;
+}
+
+#upsc {
+    background-color: lightskyblue;
+}
+
+#ssc {
+    background-color: lightpink;
+}
+
+h1 {
+    color: indianred;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -65,8 +85,17 @@ body {
 }
 
 #submitBtn {
+    background-color: green;
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
 }

@@ -77,10 +77,22 @@ function selectOption(selectedOption) {
 }
 
 function checkAnswer() {
-    const userAnswer = optionsElement.querySelector('li.selected').innerText.slice(3);
+    const selectedOption = optionsElement.querySelector('li.selected');
+    if (!selectedOption) {
+        alert('Please select an option.');
+        return;
+    }
+    const userAnswer = selectedOption.innerText.slice(3);
     const correctAnswer = quizData[currentSubject][currentQuestion].answer;
     if (userAnswer === correctAnswer) {
+        selectedOption.classList.add('correct');
         score++;
+    } else {
+        selectedOption.classList.add('incorrect');
+        const correctOption = Array.from(optionsElement.children).find(li => li.innerText.slice(3) === correctAnswer);
+        if (correctOption) {
+            correctOption.classList.add('correct');
+        }
     }
 }
 
@@ -91,18 +103,18 @@ function showResult() {
 loadQuestion();
 
 submitBtn.addEventListener('click', () => {
-    const selectedOption = optionsElement.querySelector('li.selected');
-    if (selectedOption) {
-        checkAnswer();
-        currentQuestion++;
-        if (currentQuestion < quizData[currentSubject].length) {
+    checkAnswer();
+    currentQuestion++;
+    if (currentQuestion < quizData[currentSubject].length) {
+        setTimeout(() => {
             loadQuestion();
-        } else {
-            showResult();
-            submitBtn.disabled = true;
-        }
+            optionsElement.querySelectorAll('li').forEach(li => {
+                li.classList.remove('selected', 'correct', 'incorrect');
+            });
+        }, 1000); // Delay to show the color change before moving to the next question
     } else {
-        alert('Please select an option.');
+        showResult();
+        submitBtn.disabled = true;
     }
 });
 
